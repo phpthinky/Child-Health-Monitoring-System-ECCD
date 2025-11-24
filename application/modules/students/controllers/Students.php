@@ -22,11 +22,11 @@ class Students extends MY_Controller
     // code...
 
     $data = new stdClass();
-      if(!empty($_GET['worker'])){
-        $workersId = $_GET['worker'];
+      if(!empty($this->input->get('worker'))){
+        $workersId = $this->input->get('worker', TRUE);
       }
       $this->workersId = $workersId;
-      $YearId = $_GET['year'];
+      $YearId = $this->input->get('year', TRUE);
       $data->YearId = $YearId;
 
       $centerId = $this->workers_model->getMyCenterId($this->workersId);
