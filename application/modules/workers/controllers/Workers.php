@@ -96,12 +96,14 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
         echo json_encode(array('status'=>false,'msg'=>'Email already used.'));
         exit();
       }
-      $data2->userId = $this->aauth->create_user($this->input->post('email'),'123456');
-      
+      // Generate secure random password
+      $randomPassword = bin2hex(random_bytes(6)); // 12 character random password
+      $data2->userId = $this->aauth->create_user($this->input->post('email'), $randomPassword);
+
         if($result = $this->workers_model->save($data2)){
-          echo savesuccess(1);
+          echo json_encode(array('status'=>true,'msg'=>'Worker added successfully. Temporary password: '.$randomPassword.' (Please save this - it will only be shown once)'));
         }else{
-          echo saveError(1);
+          echo json_encode(array('status'=>false,'msg'=>'Error adding worker.'));
 
         }
           

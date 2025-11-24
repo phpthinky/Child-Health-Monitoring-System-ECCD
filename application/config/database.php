@@ -73,12 +73,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
+// Load environment variables from .env file if it exists
+if (file_exists(FCPATH . '.env')) {
+	$envFile = file(FCPATH . '.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+	foreach ($envFile as $line) {
+		if (strpos(trim($line), '#') === 0) continue; // Skip comments
+		list($key, $value) = explode('=', $line, 2);
+		$_ENV[trim($key)] = trim($value);
+	}
+}
+
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'mswdeccddb',
+	'hostname' => isset($_ENV['DB_HOSTNAME']) ? $_ENV['DB_HOSTNAME'] : 'localhost',
+	'username' => isset($_ENV['DB_USERNAME']) ? $_ENV['DB_USERNAME'] : 'root',
+	'password' => isset($_ENV['DB_PASSWORD']) ? $_ENV['DB_PASSWORD'] : '',
+	'database' => isset($_ENV['DB_DATABASE']) ? $_ENV['DB_DATABASE'] : 'mswdeccddb',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

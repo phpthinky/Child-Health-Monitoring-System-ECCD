@@ -17,8 +17,8 @@ class Students_model extends CI_model
   {
     // code...
     if (!empty($centerId)) {
-      $sql = "SELECT count(*) as totalstudent FROM `epupils` JOIN eschoolyear_by_worker_students ON studentId = pupilsId JOIN eschoolyear_by_worker ON eschoolyear_by_worker.workersId = eschoolyear_by_worker_students.workersId JOIN eworkers ON eworkers.workersId = eschoolyear_by_worker.workersId where centerId = $centerId";
-      $query = $this->db->query($sql);
+      $sql = "SELECT count(*) as totalstudent FROM `epupils` JOIN eschoolyear_by_worker_students ON studentId = pupilsId JOIN eschoolyear_by_worker ON eschoolyear_by_worker.workersId = eschoolyear_by_worker_students.workersId JOIN eworkers ON eworkers.workersId = eschoolyear_by_worker.workersId where centerId = ?";
+      $query = $this->db->query($sql, array($centerId));
     }else{
 
     $this->db->select('*');
@@ -32,10 +32,10 @@ class Students_model extends CI_model
   public function listAll($centerId=false)
   {
     // code...
-    
+
     if (!empty($centerId)) {
-      $sql = "SELECT count(*) as totalstudent FROM `epupils` JOIN eschoolyear_by_worker_students ON studentId = pupilsId JOIN eschoolyear_by_worker ON eschoolyear_by_worker.workersId = eschoolyear_by_worker_students.workersId JOIN eworkers ON eworkers.workersId = eschoolyear_by_worker.workersId where centerId = $centerId";
-      $query = $this->db->query($sql);
+      $sql = "SELECT count(*) as totalstudent FROM `epupils` JOIN eschoolyear_by_worker_students ON studentId = pupilsId JOIN eschoolyear_by_worker ON eschoolyear_by_worker.workersId = eschoolyear_by_worker_students.workersId JOIN eworkers ON eworkers.workersId = eschoolyear_by_worker.workersId where centerId = ?";
+      $query = $this->db->query($sql, array($centerId));
     }else{
 
     $this->db->select('*');

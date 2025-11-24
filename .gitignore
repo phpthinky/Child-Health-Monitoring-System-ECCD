@@ -17,3 +17,8 @@ application/logs/*
 !application/logs/.htaccess
 /vendor/
 application/modules/weighing/models/gcp install
+
+# Environment configuration - NEVER commit this file!
+.env
+.env.local
+.env.*.local
